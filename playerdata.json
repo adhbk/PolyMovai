@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Adrien",
+    "pres": 1,
+    "vicepres": 0,
+    "neutre": 1,
+    "vicetrou": 2,
+    "trou": 2
+  },
+  {
+    "name": "Alex",
+    "pres": 0,
+    "vicepres": 1,
+    "neutre": 1,
+    "vicetrou": 3,
+    "trou": 1
+  },
+  {
+    "name": "Jacques",
+    "trou": 0,
+    "vicetrou": 0,
+    "neutre": 0,
+    "vicepres": 0,
+    "pres": 0
+  },
+  {
+    "name": "Michel",
+    "trou": 0,
+    "vicetrou": 0,
+    "neutre": 0,
+    "vicepres": 0,
+    "pres": 0
+  }
+]
