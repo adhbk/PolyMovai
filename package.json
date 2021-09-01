@@ -1,7 +1,7 @@
 {
-  "name": "bareminimum",
-  "version": "1.0.0",
-  "description": "Programme BareMinimum de NodeAtlas",
+  "name": "polypresident",
+  "version": "0.2",
+  "description": "Application permettant de stocker des scores de parties de président",
   "main": "server.js",
   "dependencies": {
     "node-atlas": "^2.0.8"
