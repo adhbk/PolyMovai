@@ -24,7 +24,7 @@ exports.setSockets = function () {
 
       socket.on('login', credentials => {
         let idCompte = login(credentials)
-        console.log(idCompte)
+        //console.log(idCompte)
         if(idCompte == -1){
           socket.emit('loginfail')
           return;
@@ -33,10 +33,10 @@ exports.setSockets = function () {
 
         clients.push({compteID : idCompte,socket : socket});
         
-        console.log('envoi des données des joueurs:')
-        console.log(NA.playerData)
+        //console.log('envoi des données des joueurs:')
+        //console.log(NA.playerData)
 
-        console.log(NA.playerData[idCompte])
+        //console.log(NA.playerData[idCompte])
         socket.emit('playerdata',NA.playerData[idCompte]);
         
         socket.on('playerdata',function(data){
@@ -69,28 +69,28 @@ exports.setSockets = function () {
       })
 
 
-      console.log("nouvel onglet")
+      //console.log("nouvel onglet")
 
       socket.on('disconnect', function(){
-        console.log('client déconnecté')
+        //console.log('client déconnecté')
       })
 
     });
 
 
   function login(credentials){ 
-    console.log('demande de connexion avec:')
-    console.log(credentials)
-    console.log('La liste des comptes est:')
-    console.log(NA.comptes)
+    //console.log('demande de connexion avec:')
+    //console.log(credentials)
+    //console.log('La liste des comptes est:')
+    //console.log(NA.comptes)
 
     let id = -1;
     
     NA.comptes.forEach( (item,index,arr) => {
-      console.log(credentials.mdp)
-      console.log(item.mdp)
-      console.log(credentials.login)
-      console.log(item.login)
+      //console.log(credentials.mdp)
+      //console.log(item.mdp)
+      //console.log(credentials.login)
+      //console.log(item.login)
 
       if(credentials.mdp == item.mdp && credentials.login == item.login)
         id =  index;
@@ -101,8 +101,8 @@ exports.setSockets = function () {
   }
 
   function createAccount(credentials){
-    console.log('création du compte:')
-    console.log(credentials)
+    //console.log('création du compte:')
+    //console.log(credentials)
 
     let retour = 0;
 
@@ -115,14 +115,14 @@ exports.setSockets = function () {
 
     NA.comptes.push(credentials);
 
-    console.log('La liste des comptes est maintenant:')
-    console.log(NA.comptes)
+    //console.log('La liste des comptes est maintenant:')
+    //console.log(NA.comptes)
 
     let dataJSON = JSON.stringify(NA.comptes, null, 2);
 
     NA.fs.writeFile('comptes.json', dataJSON, (err) => {
         if (err) retour = -1;
-        console.log('Data written to file');
+        //console.log('Data written to file');
         retour = 1;
     });
 
