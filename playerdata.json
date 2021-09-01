@@ -1,34 +1,30 @@
 [
-  {
-    "name": "Adrien",
-    "pres": 1,
-    "vicepres": 0,
-    "neutre": 1,
-    "vicetrou": 2,
-    "trou": 2
-  },
-  {
-    "name": "Alex",
-    "pres": 0,
-    "vicepres": 1,
-    "neutre": 1,
-    "vicetrou": 3,
-    "trou": 1
-  },
-  {
-    "name": "Jacques",
-    "trou": 0,
-    "vicetrou": 0,
-    "neutre": 0,
-    "vicepres": 0,
-    "pres": 0
-  },
-  {
-    "name": "Michel",
-    "trou": 0,
-    "vicetrou": 0,
-    "neutre": 0,
-    "vicepres": 0,
-    "pres": 0
-  }
+  [
+    {
+      "name": "Jacques",
+      "trou": 1,
+      "vicetrou": 1,
+      "neutre": 0,
+      "vicepres": 0,
+      "pres": 1
+    }
+  ],
+  [
+    {
+      "name": "Paul",
+      "trou": 0,
+      "vicetrou": 2,
+      "neutre": 0,
+      "vicepres": 0,
+      "pres": 0
+    },
+    {
+      "name": "Tom",
+      "trou": 0,
+      "vicetrou": 0,
+      "neutre": 0,
+      "vicepres": 0,
+      "pres": 0
+    }
+  ]
 ]

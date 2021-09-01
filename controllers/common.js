@@ -9,6 +9,9 @@ var   NA = this;
 let rawdata = NA.fs.readFileSync('playerdata.json');
 NA.playerData = JSON.parse(rawdata);
 
+let rawdatacomptes = NA.fs.readFileSync('comptes.json');
+NA.comptes = JSON.parse(rawdatacomptes);
+
 };
 
 exports.setSessions = function (next) {

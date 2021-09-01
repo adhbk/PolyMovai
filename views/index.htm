@@ -14,8 +14,7 @@
 
 <body>
 
-
-
+  
   <table id="myTable" class="table table-striped table-earning">
     <thead>
       <tr>
@@ -31,11 +30,33 @@
     <tbody id="tableauScores"></tbody>
   </table>
 
-  <form id="formulaireCreation">
+  <form id="formulaireCreationJoueur">
     <input name="nomJoueur" type="text" id="zoneTexteNomJoueur" length="50" placeholder="Nom du joueur ici..."></input>
 
     <button id="boutonCreer" class=" btn btn-success" type="submit">Créer Joueur</button>
   </form>
+
+
+  <form id="formulaireCreationCompte">
+    <label id="messageCreation"></label>
+    <br>
+
+    <input name="nomCompte" type="text" id="zoneTexteNomCompte" length="50" placeholder="Nom de compte..."></input>
+    <input name="motDePasse" type="text" id="zoneTexteMotDePasse" length="50" placeholder="Mot de passe..."></input>
+
+    <button id="boutonCreer" class=" btn btn-success" type="submit">Créer Compte</button>
+  </form>
+
+  <form id="formulaireConnexion">
+    <label id="messageConnexion"></label>
+    <br>
+    <input name="nomCompte" type="text" id="zoneTexteNomCompteConnexion" length="50" placeholder="Nom de compte..."></input>
+    <input name="motDePasse" type="text" id="zoneTexteMotDePasseConnexion" length="50" placeholder="Mot de passe..."></input>
+
+    <button id="boutonConnexion" class=" btn btn-success" type="submit">Connexion</button>
+  </form>
+
+  
 
   <script src="socket.io/socket.io.js"></script>
   <script type="text/javascript" src="node-atlas/socket.io.js"></script>

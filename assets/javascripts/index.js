@@ -3,6 +3,8 @@
 var bouton = document.getElementById("Bouton");
 
 var playerData = [];
+
+document.getElementById('formulaireCreationJoueur').style.visibility = "hidden"
 /*
 bouton.addEventListener("click", function () {
   var donnees = ["contenu exemple"];
@@ -16,12 +18,54 @@ NA.socket.on('playerdata',function (data){
   playerData = data;
 })
 
-document.getElementById('formulaireCreation').addEventListener('submit',function(event){
+NA.socket.on('loginsucceed',function (){
+  console.log('login successful')
+  document.getElementById('formulaireCreationCompte').style.visibility = "hidden";
+  document.getElementById('formulaireConnexion').style.visibility = "hidden";
+  document.getElementById('formulaireCreationJoueur').style.visibility = "visible";
+
+})
+
+NA.socket.on('loginfail',function (){
+  console.log('login failed :(')
+  document.getElementById('messageConnexion').innerHTML = "Identifiants invalides";
+})
+
+NA.socket.on('accountalreadyexists',function (){
+  console.log('compte existe déjà')
+  document.getElementById('messageCreation').innerHTML = "Ce nom de compte est déjà pris !";
+})
+
+NA.socket.on('accountcreated',function (){
+  console.log('compte créé')
+  document.getElementById('messageCreation').innerHTML = "Le compte a bien été créé";
+})
+
+
+document.getElementById('formulaireCreationJoueur').addEventListener('submit',function(event){
   event.preventDefault();
 
   let player = {name : event.target.nomJoueur.value ,trou : 0 , vicetrou : 0 , neutre : 0 , vicepres : 0 , pres : 0};
   playerData.push(player);
   NA.socket.emit('playerdata',playerData);
+})
+
+document.getElementById('formulaireCreationCompte').addEventListener('submit',function(event){
+  event.preventDefault();
+
+  let credentials = {login : event.target.nomCompte.value , mdp : event.target.motDePasse.value}
+  console.log('creation du compte:')
+  console.log(credentials)
+  NA.socket.emit('createaccount',credentials);
+})
+
+document.getElementById('formulaireConnexion').addEventListener('submit',function(event){
+  event.preventDefault();
+
+  let credentials = {login : event.target.nomCompte.value , mdp : event.target.motDePasse.value}
+  console.log('creation au compte:')
+  console.log(credentials)
+  NA.socket.emit('login',credentials);
 })
 
 function miseAJourData(data){
@@ -86,37 +130,3 @@ function createButton(field, subtamaman, inc) {
   return button;
 }
 
-/*
-<table id="myTable" class="table table-borderless table-striped table-earning">
-  <thead>
-    <tr>
-      <th>date</th>
-      <th>file name</th>
-    </tr>
-  </thead>
-  <tbody id="testBody"></tbody>
-</table>
-<script>
-  const items1 = [
-    { date: "10/17/2018", name: "john doe" },
-    { date: "10/18/2018", name: "jane doe" },
-  ];
-  const items2 = [
-    { date: "10/17/2019", name: "john doe" },
-    { date: "10/18/2019", name: "jane doe" },
-  ];
-  function loadTableData(items) {
-    const table = document.getElementById("testBody");
-    items.forEach( item => {
-      let row = table.insertRow();
-      let date = row.insertCell(0);
-      date.innerHTML = item.date;
-      let name = row.insertCell(1);
-      name.innerHTML = item.name;
-    });
-  }
-  loadTableData(items1);
-  loadTableData(items2);
-  loadTableData([]);
-</script>
-*/
