@@ -10,12 +10,18 @@ document.getElementById('formulaireCreationJoueur').style.visibility = "hidden";
 
 var cred;
 
+
 /*
 bouton.addEventListener("click", function () {
   var donnees = ["contenu exemple"];
 
   NA.socket.emit("appui_bouton", donnees);
 });*/
+
+NA.socket.on('connect', () => {
+  if(cred != null)
+    NA.socket.emit('login',cred);
+})
 
 NA.socket.on('playerdata',function (data){
   console.log(data);
@@ -77,6 +83,7 @@ document.getElementById('formulaireConnexion').addEventListener('submit',functio
   console.log('creation au compte:')
   console.log(credentials)
   NA.socket.emit('login',credentials);
+  var cred;
 })
 
 function miseAJourData(data){
