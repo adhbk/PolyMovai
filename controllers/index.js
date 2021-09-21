@@ -21,7 +21,7 @@ exports.setSockets = function () {
 
     // Attendre un lien valide entre client et serveur
     io.sockets.on("connection", function (socket) {
-
+      console.log("Client connecté")
       socket.on('login', credentials => {
         let idCompte = login(credentials)
         //console.log(idCompte)
@@ -72,7 +72,7 @@ exports.setSockets = function () {
       //console.log("nouvel onglet")
 
       socket.on('disconnect', function(){
-        //console.log('client déconnecté')
+        console.log('client déconnecté')
       })
 
     });
