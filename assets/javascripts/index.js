@@ -19,6 +19,8 @@ bouton.addEventListener("click", function () {
 });*/
 
 NA.socket.on('connect', () => {
+  console.log("tentative de connexion")
+  console.log(cred)
   if(cred != null)
     NA.socket.emit('login',cred);
 })
