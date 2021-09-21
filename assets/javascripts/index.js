@@ -4,7 +4,12 @@ var bouton = document.getElementById("Bouton");
 
 var playerData = [];
 
-document.getElementById('formulaireCreationJoueur').style.visibility = "hidden"
+document.getElementById('myTable').style.visibility = "hidden";
+
+document.getElementById('formulaireCreationJoueur').style.visibility = "hidden";
+
+var cred;
+
 /*
 bouton.addEventListener("click", function () {
   var donnees = ["contenu exemple"];
@@ -23,6 +28,10 @@ NA.socket.on('loginsucceed',function (){
   document.getElementById('formulaireCreationCompte').style.visibility = "hidden";
   document.getElementById('formulaireConnexion').style.visibility = "hidden";
   document.getElementById('formulaireCreationJoueur').style.visibility = "visible";
+  document.getElementById('myTable').style.visibility = "visible";
+  document.getElementsByTagName("h1")[0].remove();
+  document.getElementsByTagName("h3")[0].remove();
+
 
 })
 
@@ -33,12 +42,13 @@ NA.socket.on('loginfail',function (){
 
 NA.socket.on('accountalreadyexists',function (){
   console.log('compte existe déjà')
-  document.getElementById('messageCreation').innerHTML = "Ce nom de compte est déjà pris !";
+  document.getElementById('messageCreation').innerHTML = "Ce nom de partie est déjà pris !";
 })
 
 NA.socket.on('accountcreated',function (){
   console.log('compte créé')
-  document.getElementById('messageCreation').innerHTML = "Le compte a bien été créé";
+  document.getElementById('messageCreation').innerHTML = "La partie a bien été créée";
+  NA.socket.emit('login',cred);
 })
 
 
@@ -57,6 +67,7 @@ document.getElementById('formulaireCreationCompte').addEventListener('submit',fu
   console.log('creation du compte:')
   console.log(credentials)
   NA.socket.emit('createaccount',credentials);
+  cred = credentials;
 })
 
 document.getElementById('formulaireConnexion').addEventListener('submit',function(event){
@@ -110,7 +121,7 @@ function miseAJourData(data){
     pres.appendChild(createButton(index, 'pres', -1))
 
     let score = row.insertCell(6);
-    score.innerHTML = item.vicetrou + item.neutre*2 + item.vicepres*3 + item.pres*4;
+    score.innerHTML = item.trou  * (-10) + item.vicetrou * (-5) + item.neutre *0 + item.vicepres*5 + item.pres*10;
 
 
   });
