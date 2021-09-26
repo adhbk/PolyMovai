@@ -40,7 +40,7 @@ NA.socket.on('loginsucceed',function (){
   document.getElementById('myTable').style.visibility = "visible";
   document.getElementsByTagName("h1")[0].remove();
   document.getElementsByTagName("h3")[0].remove();
-
+  document.getElementById('boutonDeconnexion').style.visibility = "visible"
 
 })
 
