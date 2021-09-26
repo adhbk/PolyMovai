@@ -17,45 +17,39 @@ exports.setSockets = function () {
     console.log("exports.setSockets");
 
     var clients = [];
+    var sessions = [];
+
+   // var sessions = [];
 
 
     // Attendre un lien valide entre client et serveur
     io.sockets.on("connection", function (socket) {
       console.log("Client connecté")
-      socket.on('login', credentials => {
-        let idCompte = login(credentials)
-        //console.log(idCompte)
-        if(idCompte == -1){
-          socket.emit('loginfail')
-          return;
+      //console.log(socket)
+
+      const session = socket.request.session;
+      session.connections++;
+      session.save();
+
+      loopArray:
+      for(const obj of sessions){
+        console.log("comparaison de la session entrante avec les sessions stockées")
+        console.log(socket.request.sessionID)
+        console.log(obj.session)
+        if(obj.session == socket.request.sessionID){
+          console.log("match")
+          connect(socket,obj.credentials)
+          break loopArray;
         }
-        socket.emit('loginsucceed');
+      }
 
-        clients.push({compteID : idCompte,socket : socket});
-        
-        //console.log('envoi des données des joueurs:')
-        //console.log(NA.playerData)
+      socket.on('login', credentials => {
+        if(connect(socket,credentials)){
+          sessions.push({session: socket.request.sessionID , credentials : credentials})
+          console.log("enregistrement de la session ")
+          console.log(socket.request.sessionID)
+        }
 
-        //console.log(NA.playerData[idCompte])
-        socket.emit('playerdata',NA.playerData[idCompte]);
-        
-        socket.on('playerdata',function(data){
-          console.log(data);
-
-          NA.playerData[idCompte] = data;
-
-          clients.forEach((item,index,arr) => {
-            if(item.compteID == idCompte)
-              item.socket.emit('playerdata',data)
-          })
-
-          let dataJSON = JSON.stringify(NA.playerData, null, 2);
-  
-          NA.fs.writeFile('playerdata.json', dataJSON, (err) => {
-              if (err) console.log(err);
-              console.log('Data written to file');
-          });
-        })
 
       })
 
@@ -73,6 +67,15 @@ exports.setSockets = function () {
 
       socket.on('disconnect', function(){
         console.log('client déconnecté')
+      })
+
+      socket.on('disconnectaccount', () => {
+        for(s of sessions){
+          if(s.session == socket.request.sessionID){
+            sessions.splice(sessions.indexOf(s),1)
+          }
+        }
+        socket.emit('disconnectaccount')
       })
 
     });
@@ -131,6 +134,45 @@ exports.setSockets = function () {
 
   }
 
+  function connect(socket,credentials){ 
+    let idCompte = login(credentials)
+    //console.log(idCompte)
+    if(idCompte == -1){
+      socket.emit('loginfail')
+      return 0;
+    }
+  
+    socket.emit('loginsucceed');
+  
+    clients.push({compteID : idCompte,socket : socket});
+    
+    //console.log('envoi des données des joueurs:')
+    //console.log(NA.playerData)
+  
+    //console.log(NA.playerData[idCompte])
+    socket.emit('playerdata',NA.playerData[idCompte]);
+    
+    socket.on('playerdata',function(data){
+      console.log(data);
+  
+      NA.playerData[idCompte] = data;
+  
+      clients.forEach((item,index,arr) => {
+        if(item.compteID == idCompte)
+          item.socket.emit('playerdata',data)
+      })
+  
+      let dataJSON = JSON.stringify(NA.playerData, null, 2);
+  
+      NA.fs.writeFile('playerdata.json', dataJSON, (err) => {
+          if (err) console.log(err);
+          console.log('Data written to file');
+      });
+    })
+
+    return 1;
+  }
 };
+
 
 

@@ -3,11 +3,12 @@
 var bouton = document.getElementById("Bouton");
 
 var playerData = [];
-
+/*
 document.getElementById('myTable').style.visibility = "hidden";
 
 document.getElementById('formulaireCreationJoueur').style.visibility = "hidden";
-
+*/
+displayHomeMenu();
 var cred;
 
 
@@ -59,6 +60,10 @@ NA.socket.on('accountcreated',function (){
   NA.socket.emit('login',cred);
 })
 
+NA.socket.on('disconnectaccount', () => {
+displayHomeMenu();
+})
+
 
 document.getElementById('formulaireCreationJoueur').addEventListener('submit',function(event){
   event.preventDefault();
@@ -87,6 +92,12 @@ document.getElementById('formulaireConnexion').addEventListener('submit',functio
   NA.socket.emit('login',credentials);
   var cred;
 })
+
+document.getElementById('boutonDeconnexion').addEventListener('click', (event)=>{
+  NA.socket.emit('disconnectaccount');
+})
+
+
 
 function miseAJourData(data){
 
@@ -150,3 +161,29 @@ function createButton(field, subtamaman, inc) {
   return button;
 }
 
+
+function displayHomeMenu(){
+  document.getElementById('formulaireCreationCompte').style.visibility = "visible";
+  document.getElementById('formulaireConnexion').style.visibility = "visible";
+  document.getElementById('formulaireCreationJoueur').style.visibility = "hidden";
+  document.getElementById('myTable').style.visibility = "hidden";
+
+  const title3 = document.createElement('h3')
+  title3.textContent = 'Créez et entretenez vos scores de Président !'
+  document.body.appendChild(title3)
+  document.body.insertBefore(title3,document.body.firstChild)
+
+
+  const title1 = document.createElement('h1')
+  title1.textContent = 'Polyprésident'
+  document.body.appendChild(title1)
+  document.body.insertBefore(title1,document.body.firstChild)
+  /*
+  const title = document.createElement('h1')
+  title.appendChild(document.createTextNode('bite'))
+  document.getElementById('myTable').appendChild(title)
+  document.body.insertBefore(document.getElementById('myTable'),title)
+  */
+
+  document.getElementById('boutonDeconnexion').style.visibility = "hidden"
+}
